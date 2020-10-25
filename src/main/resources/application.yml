@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: boms
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://106.12.208.53:3306/learning_flowable?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true&nullCatalogMeansCurrent=true
+    username: user01
+    password: ak402507979
+
+
+flowable:
+  database-schema-update: true
+  history-level: audit
+  async-executor-activate: false
+
+
+

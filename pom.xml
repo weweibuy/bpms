@@ -4,26 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.weweibuy</groupId>
-    <artifactId>brms</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.weweibuy.bpms</groupId>
+    <artifactId>bpms</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>brms-api</module>
-        <module>brms-service</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <weweibuy-framework.version>1.2-SNAPSHOT</weweibuy-framework.version>
+        <weweibuy-framework.version>1.0-SNAPSHOT</weweibuy-framework.version>
         <itfsw-mybatis-generator-plugin.version>1.3.2</itfsw-mybatis-generator-plugin.version>
         <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
-        <drools.verion>7.44.0.Final</drools.verion>
-        <scijava.parsington.version>2.0.0</scijava.parsington.version>
+        <flowable.verion>6.6.0</flowable.verion>
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
@@ -34,28 +27,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <dependency>
-                <groupId>com.weweibuy</groupId>
-                <artifactId>brms-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.weweibuy</groupId>
-                <artifactId>brms-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.scijava</groupId>
-                <artifactId>parsington</artifactId>
-                <version>${scijava.parsington.version}</version>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-ui-parent</artifactId>
+                <version>${flowable.verion}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
         </dependencies>
-
-
 
     </dependencyManagement>
 
@@ -94,62 +74,68 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-rest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-json-converter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-groovy-script-static-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-http</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-jsr223</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId> <!-- Needed for swagger doc generation -->
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-db</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-mvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-feign</artifactId>
+        </dependency>
+
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <profileActive>dev</profileActive>
-            </properties>
-            <build>
-                <plugins>
-                    <!--mybatis代码生成器-->
-                    <plugin>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-maven-plugin</artifactId>
-                        <version>${mybatis-generator-maven-plugin.version}</version>
-                        <configuration>
-                            <overwrite>true</overwrite>
-                            <verbose>true</verbose>
-                            <configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>8.0.16</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>com.weweibuy.framework</groupId>
-                                <artifactId>mybatis-plugin</artifactId>
-                                <version>${weweibuy-framework.version}</version>
-                            </dependency>
-
-                            <dependency>
-                                <groupId>com.itfsw</groupId>
-                                <artifactId>mybatis-generator-plugin</artifactId>
-                                <version>${itfsw-mybatis-generator-plugin.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-
-        </profile>
-
-
-        <profile>
-            <id>rel</id>
-            <properties>
-                <profileActive>rel</profileActive>
-            </properties>
-        </profile>
-
-    </profiles>
-
 </project>
