@@ -1,5 +1,6 @@
 package com.weweibuy.bpms.user;
 
+import com.weweibuy.bpms.support.GroupHelper;
 import com.weweibuy.framework.common.core.exception.Exceptions;
 import org.flowable.common.engine.impl.interceptor.CommandContext;
 import org.flowable.idm.api.Group;
@@ -16,12 +17,12 @@ public class CustomGroupQuery extends GroupQueryImpl implements NativeGroupQuery
 
     @Override
     public long executeCount(CommandContext commandContext) {
-        return 1L;
+        return GroupHelper.countGroup(this);
     }
 
     @Override
     public List<Group> executeList(CommandContext commandContext) {
-        return null;
+        return GroupHelper.queryGroup(this);
     }
 
     @Override

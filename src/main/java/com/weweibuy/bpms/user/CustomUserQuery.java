@@ -1,12 +1,12 @@
 package com.weweibuy.bpms.user;
 
+import com.weweibuy.bpms.support.UserHelper;
 import com.weweibuy.framework.common.core.exception.Exceptions;
 import org.flowable.common.engine.impl.interceptor.CommandContext;
 import org.flowable.idm.api.NativeUserQuery;
 import org.flowable.idm.api.User;
 import org.flowable.idm.engine.impl.UserQueryImpl;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,12 +17,12 @@ public class CustomUserQuery extends UserQueryImpl implements NativeUserQuery {
 
     @Override
     public long executeCount(CommandContext commandContext) {
-        return 1L;
+        return UserHelper.countUser(this);
     }
 
     @Override
     public List<User> executeList(CommandContext commandContext) {
-        return Collections.emptyList();
+        return UserHelper.queryUser(this);
     }
 
 
