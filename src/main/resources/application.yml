@@ -15,4 +15,13 @@ flowable:
   async-executor-activate: false
 
 
+rocket-mq:
+  name-server: 122.51.171.126:9876
+  producer:
+    group: PG_BPMS_TASK_CALLBACK
 
+bpms:
+  mq:
+    task:
+      callback:
+        topic: BPMS_TASK_COMPLETE

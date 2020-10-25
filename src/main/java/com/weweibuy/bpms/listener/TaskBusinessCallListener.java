@@ -1,5 +1,8 @@
 package com.weweibuy.bpms.listener;
 
+import com.weweibuy.bpms.model.eum.TaskEventTypeEum;
+import com.weweibuy.bpms.mq.TaskHandlerMqProducer;
+import com.weweibuy.bpms.mq.message.TaskCallBackMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.RepositoryService;
@@ -23,10 +26,10 @@ public class TaskBusinessCallListener implements TaskListener {
 
     private final RepositoryService repositoryService;
 
+    private final TaskHandlerMqProducer taskHandlerMqProducer;
+
     @Override
     public void notify(DelegateTask delegateTask) {
-
-
         String processInstanceId = delegateTask.getProcessInstanceId();
         String processDefinitionId = delegateTask.getProcessDefinitionId();
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
@@ -43,6 +46,12 @@ public class TaskBusinessCallListener implements TaskListener {
          * 这个查出来是空的!!!
          * String processDefinitionKey = processInstance.getProcessDefinitionKey();
          */
+        TaskCallBackMessage message = new TaskCallBackMessage();
+        message.setBusinessKey(businessKey);
+        message.setProcessKey(processDefinition.getKey());
+        message.setEventType(TaskEventTypeEum.CREATE);
+        message.setTaskKey(taskDefinitionKey);
+        taskHandlerMqProducer.sendCallBackMessage(message, "TEST");
 
         log.error("业务号: {}, 流程key: {}, 任务Key: {} 审批完成", businessKey, processDefinition.getKey(), taskDefinitionKey);
     }
