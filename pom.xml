@@ -16,6 +16,7 @@
         <itfsw-mybatis-generator-plugin.version>1.3.2</itfsw-mybatis-generator-plugin.version>
         <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
         <flowable.verion>6.6.0</flowable.verion>
+        <upms.api.verion>1.0-SNAPSHOT</upms.api.verion>
     </properties>
 
     <dependencyManagement>
@@ -135,6 +136,12 @@
         <dependency>
             <groupId>com.weweibuy.framework</groupId>
             <artifactId>common-feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy.upms</groupId>
+            <artifactId>upms-api</artifactId>
+            <version>${upms.api.verion}</version>
         </dependency>
 
     </dependencies>

@@ -5,12 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.flowable.idm.spring.SpringIdmEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author durenhao
  * @date 2020/10/23 22:27
  **/
-//@Configuration
+@Configuration
 @RequiredArgsConstructor
 public class CustomIdmEngineConfig {
 
