@@ -2,6 +2,7 @@ package com.weweibuy.bpms.support;
 
 import com.weweibuy.bpms.client.BrmsRuleClient;
 import com.weweibuy.bpms.client.dto.req.RuleExecReqDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ public class BrmsRuleHelper {
 
     private static BrmsRuleClient ruleClient;
 
+    @Autowired
     private BrmsRuleClient brmsRuleClient;
 
     @PostConstruct
