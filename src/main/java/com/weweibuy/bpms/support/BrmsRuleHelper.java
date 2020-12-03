@@ -1,11 +1,12 @@
 package com.weweibuy.bpms.support;
 
 import com.weweibuy.bpms.client.BrmsRuleClient;
-import com.weweibuy.bpms.client.dto.req.RuleExecReqDTO;
+import com.weweibuy.brms.api.model.dto.RuleExecReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -19,6 +20,7 @@ public class BrmsRuleHelper {
 
     @Autowired
     private BrmsRuleClient brmsRuleClient;
+
 
     @PostConstruct
     public void init() {
@@ -35,10 +37,13 @@ public class BrmsRuleHelper {
      */
     public static Map<String, Object> execRule(String ruleSet, String agendaGroup, Map model) {
         RuleExecReqDTO execReqDTO = new RuleExecReqDTO();
-        execReqDTO.setAgendaGroup(agendaGroup);
-        execReqDTO.setRuleSetKey(ruleSet);
+
+        RuleExecReqDTO.RuleSetKeyReqDTO ruleSetKeyReqDTO = new RuleExecReqDTO.RuleSetKeyReqDTO();
+        ruleSetKeyReqDTO.setAgendaGroup(agendaGroup);
+        ruleSetKeyReqDTO.setRuleSetKey(ruleSet);
+        execReqDTO.setRuleSet(Collections.singletonList(ruleSetKeyReqDTO));
         execReqDTO.setModel(model);
-        return ruleClient.execRule(execReqDTO).getData();
+        return ruleClient.execRule(execReqDTO).getData().getModel();
     }
 
 }
