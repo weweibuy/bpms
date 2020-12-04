@@ -4,6 +4,7 @@ import com.weweibuy.bpms.support.BrmsRuleHelper;
 import com.weweibuy.framework.common.core.exception.Exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.common.engine.api.delegate.Expression;
 import org.flowable.engine.delegate.DelegateExecution;
@@ -47,8 +48,12 @@ public class BrmsBusinessRuleTaskActivityBehavior extends BusinessRuleTaskActivi
 
         Map<String, Object> stringObjectMap = BrmsRuleHelper.execRule(ruleSet, null, variableMap);
 
-        if (stringObjectMap != null && !stringObjectMap.isEmpty()) {
-            execution.setVariable(resultVariable, stringObjectMap.get(resultVariable));
+        if (MapUtils.isNotEmpty(stringObjectMap)) {
+            if (StringUtils.isNotBlank(resultVariable) && !"org.flowable.engine.rules.OUTPUT".equals(resultVariable)) {
+                execution.setVariable(resultVariable, stringObjectMap.get(resultVariable));
+            } else {
+                stringObjectMap.forEach((k, v) -> execution.setVariable(k, v));
+            }
         }
         leave(execution);
     }
