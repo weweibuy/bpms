@@ -1,7 +1,6 @@
 package com.weweibuy.bpms.user;
 
 import com.weweibuy.framework.common.core.exception.Exceptions;
-import org.flowable.common.engine.impl.identity.Authentication;
 import org.flowable.common.engine.impl.service.CommonEngineServiceImpl;
 import org.flowable.idm.api.*;
 import org.flowable.idm.engine.IdmEngineConfiguration;
@@ -30,7 +29,7 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void updateUserPassword(User user) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -45,12 +44,12 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void deleteUser(String userId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public Group newGroup(String groupId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -65,38 +64,37 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void saveGroup(Group group) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void deleteGroup(String groupId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void createMembership(String userId, String groupId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void deleteMembership(String userId, String groupId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public boolean checkPassword(String userId, String password) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void setAuthenticatedUserId(String authenticatedUserId) {
-        Authentication.setAuthenticatedUserId(authenticatedUserId);
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void setUserPicture(String userId, Picture picture) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -106,22 +104,22 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public Token newToken(String id) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void saveToken(Token token) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void deleteToken(String tokenId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public TokenQuery createTokenQuery() {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -131,7 +129,7 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void setUserInfo(String userId, String key, String value) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -146,7 +144,7 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void deleteUserInfo(String userId, String key) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -156,12 +154,12 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void addUserPrivilegeMapping(String privilegeId, String userId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public void deleteUserPrivilegeMapping(String privilegeId, String userId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -171,7 +169,7 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void deleteGroupPrivilegeMapping(String privilegeId, String groupId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
@@ -181,7 +179,7 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
 
     @Override
     public void deletePrivilege(String privilegeId) {
-       throw Exceptions.business("不支持用户操作相关功能");
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
