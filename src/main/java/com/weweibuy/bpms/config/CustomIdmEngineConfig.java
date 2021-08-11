@@ -1,12 +1,12 @@
 package com.weweibuy.bpms.config;
 
 import com.weweibuy.bpms.user.CustomerIdmIdentityServiceImpl;
+import com.weweibuy.framework.common.core.utils.IdWorker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.common.engine.api.scope.ScopeTypes;
 import org.flowable.common.engine.impl.AbstractEngineConfiguration;
 import org.flowable.common.engine.impl.cfg.IdGenerator;
-import org.flowable.common.engine.impl.persistence.StrongUuidGenerator;
 import org.flowable.common.spring.AutoDeploymentStrategy;
 import org.flowable.common.spring.CommonAutoDeploymentProperties;
 import org.flowable.common.spring.SpringEngineConfiguration;
@@ -30,7 +30,6 @@ import org.flowable.spring.configurator.SingleResourceAutoDeploymentStrategy;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.task.AsyncListenableTaskExecutor;
@@ -46,7 +45,7 @@ import java.util.*;
  * @date 2020/10/23 22:27
  **/
 @Slf4j
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class CustomIdmEngineConfig {
 
@@ -221,11 +220,7 @@ public class CustomIdmEngineConfig {
         conf.setHistoryCleaningTimeCycleConfig(flowableProperties.getHistoryCleaningCycle());
         conf.setCleanInstancesEndedAfterNumberOfDays(flowableProperties.getHistoryCleaningAfterDays());
         conf.setActivityBehaviorFactory(new ActivityBehaviorWithBrmsFactory());
-        IdGenerator idGenerator = getIfAvailable(processIdGenerator, globalIdGenerator);
-        if (idGenerator == null) {
-            idGenerator = new StrongUuidGenerator();
-        }
-        conf.setIdGenerator(idGenerator);
+        conf.setIdGenerator(() -> IdWorker.nextStringId());
 
         // We cannot use orderedStream since we want to support Boot 1.5 which is on pre 5.x Spring
         List<AutoDeploymentStrategy<ProcessEngine>> deploymentStrategies = processEngineAutoDeploymentStrategies.getIfAvailable();
