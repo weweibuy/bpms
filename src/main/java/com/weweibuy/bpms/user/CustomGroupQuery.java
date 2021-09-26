@@ -1,11 +1,10 @@
 package com.weweibuy.bpms.user;
 
 import com.weweibuy.bpms.support.GroupHelper;
-import com.weweibuy.framework.common.core.exception.Exceptions;
-import org.flowable.common.engine.impl.interceptor.CommandContext;
-import org.flowable.idm.api.Group;
-import org.flowable.idm.api.NativeGroupQuery;
-import org.flowable.idm.engine.impl.GroupQueryImpl;
+import org.camunda.bpm.engine.identity.Group;
+import org.camunda.bpm.engine.impl.GroupQueryImpl;
+import org.camunda.bpm.engine.impl.Page;
+import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * @author durenhao
  * @date 2020/10/24 21:50
  **/
-public class CustomGroupQuery extends GroupQueryImpl implements NativeGroupQuery {
+public class CustomGroupQuery extends GroupQueryImpl {
 
     @Override
     public long executeCount(CommandContext commandContext) {
@@ -21,17 +20,9 @@ public class CustomGroupQuery extends GroupQueryImpl implements NativeGroupQuery
     }
 
     @Override
-    public List<Group> executeList(CommandContext commandContext) {
+    public List<Group> executeList(CommandContext commandContext, Page page) {
         return GroupHelper.queryGroup(this);
     }
 
-    @Override
-    public NativeGroupQuery sql(String selectClause) {
-        throw Exceptions.business("不支持的功能");
-    }
 
-    @Override
-    public NativeGroupQuery parameter(String name, Object value) {
-        throw Exceptions.business("不支持的功能");
-    }
 }

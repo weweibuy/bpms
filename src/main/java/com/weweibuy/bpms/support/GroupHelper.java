@@ -6,9 +6,9 @@ import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.upms.api.user.dto.request.GroupQueryReqDTO;
 import com.weweibuy.upms.api.user.dto.response.GroupRespDTO;
 import lombok.RequiredArgsConstructor;
-import org.flowable.idm.api.Group;
-import org.flowable.idm.engine.impl.GroupQueryImpl;
-import org.flowable.idm.engine.impl.persistence.entity.GroupEntityImpl;
+import org.camunda.bpm.engine.identity.Group;
+import org.camunda.bpm.engine.impl.GroupQueryImpl;
+import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -53,14 +53,12 @@ public class GroupHelper {
         userQueryReqDTO.setName(groupQuery.getName());
         userQueryReqDTO.setUserName(groupQuery.getUserId());
 
-        Optional.ofNullable(groupQuery.getUserIds())
-                .map(list -> list.toArray(new String[10]))
+        Optional.ofNullable(groupQuery.getIds())
                 .ifPresent(userQueryReqDTO::setUsernameList);
 
         userQueryReqDTO.setGroupKey(groupQuery.getId());
 
         Optional.ofNullable(groupQuery.getIds())
-                .map(list -> list.toArray(new String[10]))
                 .ifPresent(userQueryReqDTO::setGroupKeyList);
 
         userQueryReqDTO.setNameLike(groupQuery.getNameLike());
@@ -68,7 +66,7 @@ public class GroupHelper {
     }
 
     private static Group userRespDTOToUser(GroupRespDTO dto) {
-        GroupEntityImpl groupEntity = new GroupEntityImpl();
+        GroupEntity groupEntity = new GroupEntity();
         groupEntity.setId(dto.getGroupCode());
         groupEntity.setName(dto.getGroupName());
         return groupEntity;

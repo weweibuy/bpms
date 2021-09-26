@@ -1,20 +1,23 @@
 package com.weweibuy.bpms.user;
 
 import com.weweibuy.framework.common.core.exception.Exceptions;
-import org.flowable.common.engine.impl.service.CommonEngineServiceImpl;
-import org.flowable.idm.api.*;
-import org.flowable.idm.engine.IdmEngineConfiguration;
+import org.camunda.bpm.engine.IdentityService;
+import org.camunda.bpm.engine.identity.*;
+import org.camunda.bpm.engine.impl.identity.Account;
+import org.camunda.bpm.engine.impl.identity.Authentication;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author durenhao
  * @date 2020/10/23 22:17
  **/
-public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmEngineConfiguration> implements IdmIdentityService {
+public class CustomerIdmIdentityServiceImpl implements IdentityService {
 
-    public CustomerIdmIdentityServiceImpl(IdmEngineConfiguration idmEngineConfiguration) {
-        super(idmEngineConfiguration);
+    @Override
+    public boolean isReadOnly() {
+        return true;
     }
 
     @Override
@@ -27,10 +30,6 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
         throw Exceptions.business("不支持用户操作相关功能");
     }
 
-    @Override
-    public void updateUserPassword(User user) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
 
     @Override
     public UserQuery createUserQuery() {
@@ -48,6 +47,11 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
     }
 
     @Override
+    public void unlockUser(String userId) {
+
+    }
+
+    @Override
     public Group newGroup(String groupId) {
         throw Exceptions.business("不支持用户操作相关功能");
     }
@@ -57,10 +61,6 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
         return new CustomGroupQuery();
     }
 
-    @Override
-    public NativeGroupQuery createNativeGroupQuery() {
-        return null;
-    }
 
     @Override
     public void saveGroup(Group group) {
@@ -83,13 +83,103 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
     }
 
     @Override
+    public Tenant newTenant(String tenantId) {
+        return null;
+    }
+
+    @Override
+    public TenantQuery createTenantQuery() {
+        return null;
+    }
+
+    @Override
+    public void saveTenant(Tenant tenant) {
+
+    }
+
+    @Override
+    public void deleteTenant(String tenantId) {
+
+    }
+
+    @Override
+    public void createTenantUserMembership(String tenantId, String userId) {
+
+    }
+
+    @Override
+    public void createTenantGroupMembership(String tenantId, String groupId) {
+
+    }
+
+    @Override
+    public void deleteTenantUserMembership(String tenantId, String userId) {
+
+    }
+
+    @Override
+    public void deleteTenantGroupMembership(String tenantId, String groupId) {
+
+    }
+
+    @Override
     public boolean checkPassword(String userId, String password) {
         throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
+    public PasswordPolicyResult checkPasswordAgainstPolicy(String password) {
+        return null;
+    }
+
+    @Override
+    public PasswordPolicyResult checkPasswordAgainstPolicy(String candidatePassword, User user) {
+        return null;
+    }
+
+    @Override
+    public PasswordPolicyResult checkPasswordAgainstPolicy(PasswordPolicy policy, String password) {
+        return null;
+    }
+
+    @Override
+    public PasswordPolicyResult checkPasswordAgainstPolicy(PasswordPolicy policy, String candidatePassword, User user) {
+        return null;
+    }
+
+    @Override
+    public PasswordPolicy getPasswordPolicy() {
+        return null;
+    }
+
+    @Override
     public void setAuthenticatedUserId(String authenticatedUserId) {
         throw Exceptions.business("不支持用户操作相关功能");
+    }
+
+    @Override
+    public void setAuthentication(String userId, List<String> groups) {
+
+    }
+
+    @Override
+    public void setAuthentication(String userId, List<String> groups, List<String> tenantIds) {
+
+    }
+
+    @Override
+    public void setAuthentication(Authentication currentAuthentication) {
+
+    }
+
+    @Override
+    public Authentication getCurrentAuthentication() {
+        return null;
+    }
+
+    @Override
+    public void clearAuthentication() {
+
     }
 
     @Override
@@ -103,29 +193,10 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
     }
 
     @Override
-    public Token newToken(String id) {
-        throw Exceptions.business("不支持用户操作相关功能");
+    public void deleteUserPicture(String userId) {
+
     }
 
-    @Override
-    public void saveToken(Token token) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public void deleteToken(String tokenId) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public TokenQuery createTokenQuery() {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public NativeTokenQuery createNativeTokenQuery() {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
 
     @Override
     public void setUserInfo(String userId, String key, String value) {
@@ -148,53 +219,23 @@ public class CustomerIdmIdentityServiceImpl extends CommonEngineServiceImpl<IdmE
     }
 
     @Override
-    public Privilege createPrivilege(String privilegeName) {
+    public void setUserAccount(String userId, String userPassword, String accountName, String accountUsername, String accountPassword, Map<String, String> accountDetails) {
+
+    }
+
+    @Override
+    public List<String> getUserAccountNames(String userId) {
         return null;
     }
 
     @Override
-    public void addUserPrivilegeMapping(String privilegeId, String userId) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public void deleteUserPrivilegeMapping(String privilegeId, String userId) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public void addGroupPrivilegeMapping(String privilegeId, String groupId) {
-
-    }
-
-    @Override
-    public void deleteGroupPrivilegeMapping(String privilegeId, String groupId) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
-
-    @Override
-    public List<PrivilegeMapping> getPrivilegeMappingsByPrivilegeId(String privilegeId) {
+    public Account getUserAccount(String userId, String userPassword, String accountName) {
         return null;
     }
 
     @Override
-    public void deletePrivilege(String privilegeId) {
-        throw Exceptions.business("不支持用户操作相关功能");
-    }
+    public void deleteUserAccount(String userId, String accountName) {
 
-    @Override
-    public List<User> getUsersWithPrivilege(String privilegeId) {
-        return null;
-    }
-
-    @Override
-    public List<Group> getGroupsWithPrivilege(String privilegeId) {
-        return null;
-    }
-
-    @Override
-    public PrivilegeQuery createPrivilegeQuery() {
-        return null;
     }
 
 
