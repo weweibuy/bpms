@@ -26,7 +26,7 @@ public class TaskBusinessCallListener implements TaskListener {
 
     private final RepositoryService repositoryService;
 
-    private final TaskHandlerMqProducer taskHandlerMqProducer;
+//    private final TaskHandlerMqProducer taskHandlerMqProducer;
 
     @Override
     public void notify(DelegateTask delegateTask) {
@@ -51,7 +51,7 @@ public class TaskBusinessCallListener implements TaskListener {
         message.setProcessKey(processDefinition.getKey());
         message.setEventType(TaskEventTypeEum.CREATE);
         message.setTaskKey(taskDefinitionKey);
-        taskHandlerMqProducer.sendCallBackMessage(message, "TEST");
+//        taskHandlerMqProducer.sendCallBackMessage(message, "TEST");
 
         log.error("业务号: {}, 流程key: {}, 任务Key: {} 审批完成", businessKey, processDefinition.getKey(), taskDefinitionKey);
     }

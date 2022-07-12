@@ -1,0 +1,15 @@
+1. zeebe JobWorker可以只能拉取或查询serviceTask
+2. 针对userTask, zeebe可以通过zeebe的TaskList组件进行操作
+3. Operate流程实例上展示的 [Flow Node Instance Id] 与 [jobKey] 是两个不同的概念,值也不一样,
+    newCompleteCommand([jobkey]),而不是[Flow Node Instance Id]
+    newSetVariablesCommand([Flow Node Instance Id])而不是[jobKey]
+4. 表达式必须以 =开头, 字符串必须加双引号否则会被判断成变量名,示例: https://docs.camunda.io/docs/components/concepts/expressions/
+5. 目前没有发现ZeebeClient可以设置任务局部变量的地方, 所有设置的变量都是全局变量
+6. jobType: [io.camunda.zeebe:userTask] 是zeebe的用户任务, 可以启动JobWorker拉取对应的任务
+7. [io.camunda.zeebe:userTask] 对应任务也可以使用newCompleteCommand进行完成
+8. Business rule tasks 可以定义成与serviceTask成一样的, 通过Header和字段映射可以传递相关参数
+9. 流程变量
+    9.1 通过JobWorker设置的变量都是全局变量
+    9.2 Input 可以将已经存在的变量(Modeler中的Variable assignment value)映射成任务变量(Local variable name)
+    9.3 outPut 可以将已经存在的变量(包括任务提交的变量)映射成流程实例变量,  Variable assignment value --> Process variable name
+10. Header Modeler中设置Header值的时候不需要加双引号, 但是再使用表达的时候需要双引号

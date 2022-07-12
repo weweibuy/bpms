@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author durenhao
  * @date 2020/10/25 11:22
  **/
-@EnableRocketProducer
+//@EnableRocketProducer
 @SpringBootApplication
 @EnableFeignClients
 public class BpmsApplication {
