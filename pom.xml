@@ -16,7 +16,7 @@
         <itfsw-mybatis-generator-plugin.version>1.3.2</itfsw-mybatis-generator-plugin.version>
         <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
         <flowable.verion>6.7.0</flowable.verion>
-        <camunda.verion>7.17.0</camunda.verion>
+        <camunda.verion>7.19.0</camunda.verion>
         <upms.api.verion>1.0-SNAPSHOT</upms.api.verion>
         <brms.api.verion>1.0-SNAPSHOT</brms.api.verion>
         <zeebe-client-java.verion>8.0.2</zeebe-client-java.verion>
@@ -47,32 +47,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mockito</groupId>
-                    <artifactId>mockito-junit-jupiter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -90,9 +64,22 @@
             <version>${zeebe-client-java.verion}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>3.0.13</version>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>com.weweibuy.framework</groupId>
             <artifactId>common-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-mvc</artifactId>
         </dependency>
 
         <dependency>
@@ -120,12 +107,6 @@
             <groupId>com.weweibuy</groupId>
             <artifactId>brms-api</artifactId>
             <version>${brms.api.verion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
         </dependency>
 
         <dependency>

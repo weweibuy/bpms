@@ -4,9 +4,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://106.12.208.53:3306/webuy_camunda?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://223.247.141.69:3306/webuy_camunda?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true&nullCatalogMeansCurrent=true
     username: user01
     password: ak402507979
+    hikari:
+      max-lifetime: 30000
 
 
 camunda:
@@ -17,6 +19,7 @@ camunda:
       db-reporter-activate: false
     job-execution:
       enabled: false
+
 
 
 

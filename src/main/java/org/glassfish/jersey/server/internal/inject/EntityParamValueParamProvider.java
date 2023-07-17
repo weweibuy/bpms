@@ -1,8 +1,6 @@
 package org.glassfish.jersey.server.internal.inject;
 
-import com.weweibuy.bpms.config.BpmsRequestLogContextFilter;
-import com.weweibuy.framework.common.core.utils.HttpRequestUtils;
-import com.weweibuy.framework.common.log.logger.HttpLogger;
+import lombok.extern.slf4j.Slf4j;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.glassfish.jersey.server.internal.LocalizationMessages;
 import org.glassfish.jersey.server.model.Parameter;
@@ -18,12 +16,8 @@ import javax.ws.rs.core.Response;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import org.glassfish.jersey.server.ContainerRequest;
-import org.glassfish.jersey.server.internal.LocalizationMessages;
-import org.glassfish.jersey.server.model.Parameter;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
+@Slf4j
 @Singleton
 class EntityParamValueParamProvider extends AbstractValueParamProvider {
 
@@ -67,13 +61,23 @@ class EntityParamValueParamProvider extends AbstractValueParamProvider {
                 }
                 return value;
             } finally {
-                RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-                HttpServletRequest httpServletRequest = HttpRequestUtils.<HttpServletRequest>getRequestAttribute(requestAttributes, BpmsRequestLogContextFilter.CACHING_REQUEST);
-                if (httpServletRequest != null) {
-                    HttpLogger.logForJsonRequest(httpServletRequest, true);
-                }
+                logRequest();
             }
-
         }
+
+        private void logRequest() {
+//            try {
+//                RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+//                HttpServletRequest httpServletRequest = HttpRequestUtils.<HttpServletRequest>getRequestAttribute(requestAttributes, BpmsRequestLogContextFilter.CACHING_REQUEST);
+//                if (httpServletRequest != null) {
+//                }
+//            } catch (Exception e) {
+//                log.warn("输出请求日志异常: ", e);
+//                return;
+//            }
+        }
+
     }
+
+
 }

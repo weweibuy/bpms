@@ -1,8 +1,13 @@
 package com.weweibuy.bpms.config;
 
 import com.weweibuy.framework.common.log.mvc.TraceCodeFilter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
+import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.filter.RequestContextFilter;
 
 /**
  * @author durenhao
@@ -12,15 +17,11 @@ import org.springframework.context.annotation.Configuration;
 public class CustomWenConfig {
 
     @Bean
-    public TraceCodeFilter traceCodeFilter() {
-        return new TraceCodeFilter();
+    @ConditionalOnMissingBean({ RequestContextListener.class, RequestContextFilter.class })
+    @ConditionalOnMissingFilterBean(RequestContextFilter.class)
+    public RequestContextFilter requestContextFilter() {
+        return new OrderedRequestContextFilter();
     }
-
-    @Bean
-    public BpmsRequestLogContextFilter requestLogContextFilter() {
-        return new BpmsRequestLogContextFilter();
-    }
-
 
 
 }
