@@ -1,6 +1,5 @@
 package com.weweibuy.bpms.config;
 
-import com.weweibuy.framework.common.log.mvc.TraceCodeFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter;

@@ -2,7 +2,7 @@ spring:
   application:
     name: bpms
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://223.247.141.69:3306/webuy_camunda?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true&nullCatalogMeansCurrent=true
     username: user01
@@ -33,3 +33,6 @@ bpms:
     task:
       callback:
         topic: BPMS_TASK_COMPLETE
+logging:
+  level:
+    org.camunda.bpm.engine.impl.persistence.entity: debug  # org.camunda.bpm.engine.impl.persistence.entity
