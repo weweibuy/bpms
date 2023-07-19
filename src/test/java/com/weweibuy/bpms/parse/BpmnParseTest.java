@@ -4,9 +4,13 @@ import com.weweibuy.framework.common.core.utils.ClassPathFileUtils;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParse;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParser;
 import org.camunda.bpm.engine.impl.cfg.DefaultBpmnParseFactory;
+import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.el.JuelExpressionManager;
 import org.camunda.bpm.engine.impl.persistence.entity.DeploymentStatisticsEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.camunda.bpm.engine.impl.scripting.ScriptFactory;
+import org.camunda.bpm.spring.boot.starter.property.Defaults;
 
 import java.io.InputStream;
 import java.util.List;
@@ -18,6 +22,9 @@ import java.util.List;
 public class BpmnParseTest {
 
     public static void main(String[] args) throws Exception {
+        ScriptFactory scriptFactory = new ScriptFactory();
+        Defaults.INSTANCE.setScriptFactory(scriptFactory);
+        Context.setProcessEngineConfiguration(Defaults.INSTANCE);
         new BpmnParseTest().test();
     }
 
