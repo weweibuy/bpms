@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1mt0v7u" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:message id="Message_30052f7" name="Message_30052f7" />
+  <bpmn:process id="event_test" name="event_test" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:subProcess id="Activity_0soc4zs" name="event_test_sub">
+      <bpmn:incoming>Flow_18rqwxw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f59zyz</bpmn:outgoing>
+      <bpmn:intermediateThrowEvent id="Event_0rrxbib">
+        <bpmn:incoming>Flow_101u1if</bpmn:incoming>
+        <bpmn:outgoing>Flow_1v6a7vy</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_0kpkh1c" messageRef="Message_30052f7" camunda:expression="${execution.getProcessEngineServices().getRuntimeService()                 .messageEventReceived(&#34;Message_30052f7&#34;, execution.getId())}">
+          <bpmn:extensionElements />
+        </bpmn:messageEventDefinition>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:exclusiveGateway id="Gateway_1ym1eme" default="Flow_1x2hotb">
+        <bpmn:incoming>Flow_1oikd7t</bpmn:incoming>
+        <bpmn:outgoing>Flow_101u1if</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1x2hotb</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:scriptTask id="Activity_0xqpavq" scriptFormat="groovy">
+        <bpmn:incoming>Flow_1x2hotb</bpmn:incoming>
+        <bpmn:outgoing>Flow_0gv1loo</bpmn:outgoing>
+        <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+log.info '下方第二个任务开始执行'</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:endEvent id="Event_1m5r99b">
+        <bpmn:incoming>Flow_1v6a7vy</bpmn:incoming>
+        <bpmn:incoming>Flow_0gv1loo</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:scriptTask id="Activity_0ymait9" scriptFormat="groovy">
+        <bpmn:incoming>Flow_1fh6hpe</bpmn:incoming>
+        <bpmn:outgoing>Flow_1oikd7t</bpmn:outgoing>
+        <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+
+log.info '下方第一个任务开始执行'</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:startEvent id="Event_0rj5al7">
+        <bpmn:outgoing>Flow_1fh6hpe</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_1v6a7vy" sourceRef="Event_0rrxbib" targetRef="Event_1m5r99b" />
+      <bpmn:sequenceFlow id="Flow_101u1if" sourceRef="Gateway_1ym1eme" targetRef="Event_0rrxbib">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${message == true}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1x2hotb" sourceRef="Gateway_1ym1eme" targetRef="Activity_0xqpavq" />
+      <bpmn:sequenceFlow id="Flow_0gv1loo" sourceRef="Activity_0xqpavq" targetRef="Event_1m5r99b" />
+      <bpmn:sequenceFlow id="Flow_1oikd7t" sourceRef="Activity_0ymait9" targetRef="Gateway_1ym1eme" />
+      <bpmn:sequenceFlow id="Flow_1fh6hpe" sourceRef="Event_0rj5al7" targetRef="Activity_0ymait9" />
+    </bpmn:subProcess>
+    <bpmn:boundaryEvent id="Event_0m81ven" attachedToRef="Activity_0soc4zs">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_0uo2t99</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1sdvxr0" messageRef="Message_30052f7" />
+    </bpmn:boundaryEvent>
+    <bpmn:scriptTask id="Activity_0duxqw5" scriptFormat="groovy">
+      <bpmn:incoming>Flow_17jrj2e</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ua1f2c</bpmn:outgoing>
+      <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+
+log.info '上方第一个任务开始执行'</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_0rk2604" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1oz06z3</bpmn:incoming>
+      <bpmn:incoming>Flow_124zdj3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0io87em</bpmn:outgoing>
+      <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+log.info '下方第四个任务开始执行'</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:endEvent id="Event_116jhur">
+      <bpmn:incoming>Flow_0io87em</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:parallelGateway id="Gateway_08tllw6">
+      <bpmn:incoming>Flow_09qgiil</bpmn:incoming>
+      <bpmn:incoming>Flow_1ua1f2c</bpmn:incoming>
+      <bpmn:outgoing>Flow_124zdj3</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:scriptTask id="Activity_1cdddkz" scriptFormat="groovy">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1f59zyz</bpmn:incoming>
+      <bpmn:outgoing>Flow_09qgiil</bpmn:outgoing>
+      <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+log.info '下方第三个任务开始执行'</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_1cmbdi2" scriptFormat="groovy">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0uo2t99</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oz06z3</bpmn:outgoing>
+      <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+log.info '接受到消息的任务开始执行'</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_1tmsdfn" scriptFormat="groovy">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1o85wtc</bpmn:incoming>
+      <bpmn:outgoing>Flow_19qai3u</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15grznh</bpmn:outgoing>
+      <bpmn:script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger(getClass());
+log.info '第一个脚本任务执行'</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_1o85wtc</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1oz06z3" sourceRef="Activity_1cmbdi2" targetRef="Activity_0rk2604" />
+    <bpmn:sequenceFlow id="Flow_0io87em" sourceRef="Activity_0rk2604" targetRef="Event_116jhur" />
+    <bpmn:sequenceFlow id="Flow_124zdj3" sourceRef="Gateway_08tllw6" targetRef="Activity_0rk2604" />
+    <bpmn:sequenceFlow id="Flow_09qgiil" sourceRef="Activity_1cdddkz" targetRef="Gateway_08tllw6" />
+    <bpmn:sequenceFlow id="Flow_1f59zyz" sourceRef="Activity_0soc4zs" targetRef="Activity_1cdddkz" />
+    <bpmn:sequenceFlow id="Flow_0uo2t99" sourceRef="Event_0m81ven" targetRef="Activity_1cmbdi2" />
+    <bpmn:sequenceFlow id="Flow_1ua1f2c" sourceRef="Activity_0duxqw5" targetRef="Gateway_08tllw6">
+      <bpmn:extensionElements />
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_18rqwxw" sourceRef="Gateway_18cqr9e" targetRef="Activity_0soc4zs" />
+    <bpmn:sequenceFlow id="Flow_17jrj2e" sourceRef="Gateway_18cqr9e" targetRef="Activity_0duxqw5" />
+    <bpmn:sequenceFlow id="Flow_1o85wtc" sourceRef="StartEvent_1" targetRef="Activity_1tmsdfn" />
+    <bpmn:sequenceFlow id="Flow_19qai3u" sourceRef="Activity_1tmsdfn" targetRef="Gateway_18cqr9e" />
+    <bpmn:parallelGateway id="Gateway_18cqr9e">
+      <bpmn:incoming>Flow_19qai3u</bpmn:incoming>
+      <bpmn:outgoing>Flow_18rqwxw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_17jrj2e</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_15grznh" sourceRef="Activity_1tmsdfn" targetRef="Activity_11bg3do" />
+    <bpmn:endEvent id="Event_10djkfp">
+      <bpmn:incoming>Flow_0s9thor</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0s9thor" sourceRef="Activity_11bg3do" targetRef="Event_10djkfp" />
+    <bpmn:userTask id="Activity_11bg3do">
+      <bpmn:incoming>Flow_15grznh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0s9thor</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event_test">
+      <bpmndi:BPMNEdge id="Flow_0s9thor_di" bpmnElement="Flow_0s9thor">
+        <di:waypoint x="420" y="120" />
+        <di:waypoint x="612" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15grznh_di" bpmnElement="Flow_15grznh">
+        <di:waypoint x="370" y="307" />
+        <di:waypoint x="370" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19qai3u_di" bpmnElement="Flow_19qai3u">
+        <di:waypoint x="420" y="347" />
+        <di:waypoint x="515" y="347" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o85wtc_di" bpmnElement="Flow_1o85wtc">
+        <di:waypoint x="188" y="347" />
+        <di:waypoint x="320" y="347" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17jrj2e_di" bpmnElement="Flow_17jrj2e">
+        <di:waypoint x="540" y="322" />
+        <di:waypoint x="540" y="260" />
+        <di:waypoint x="740" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18rqwxw_di" bpmnElement="Flow_18rqwxw">
+        <di:waypoint x="540" y="372" />
+        <di:waypoint x="540" y="425" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ua1f2c_di" bpmnElement="Flow_1ua1f2c">
+        <di:waypoint x="840" y="260" />
+        <di:waypoint x="1520" y="260" />
+        <di:waypoint x="1520" y="505" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uo2t99_di" bpmnElement="Flow_0uo2t99">
+        <di:waypoint x="704" y="654" />
+        <di:waypoint x="704" y="760" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f59zyz_di" bpmnElement="Flow_1f59zyz">
+        <di:waypoint x="1180" y="530" />
+        <di:waypoint x="1310" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09qgiil_di" bpmnElement="Flow_09qgiil">
+        <di:waypoint x="1410" y="530" />
+        <di:waypoint x="1495" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_124zdj3_di" bpmnElement="Flow_124zdj3">
+        <di:waypoint x="1545" y="530" />
+        <di:waypoint x="1640" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0io87em_di" bpmnElement="Flow_0io87em">
+        <di:waypoint x="1740" y="530" />
+        <di:waypoint x="1852" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oz06z3_di" bpmnElement="Flow_1oz06z3">
+        <di:waypoint x="754" y="800" />
+        <di:waypoint x="1690" y="800" />
+        <di:waypoint x="1690" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0h36ijq_di" bpmnElement="Activity_0duxqw5">
+        <dc:Bounds x="740" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0tt7f7y" bpmnElement="Activity_0rk2604">
+        <dc:Bounds x="1640" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_116jhur_di" bpmnElement="Event_116jhur">
+        <dc:Bounds x="1852" y="512" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1j7p4bd" bpmnElement="Gateway_08tllw6">
+        <dc:Bounds x="1495" y="505" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1bd7mh0" bpmnElement="Activity_1cdddkz">
+        <dc:Bounds x="1310" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oqc730_di" bpmnElement="Activity_1tmsdfn">
+        <dc:Bounds x="320" y="307" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="329" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1t6x5o5_di" bpmnElement="Gateway_18cqr9e">
+        <dc:Bounds x="515" y="322" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10djkfp_di" bpmnElement="Event_10djkfp">
+        <dc:Bounds x="612" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0k75tzg_di" bpmnElement="Activity_11bg3do">
+        <dc:Bounds x="320" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1e55z55_di" bpmnElement="Activity_1cmbdi2">
+        <dc:Bounds x="654" y="760" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0soc4zs_di" bpmnElement="Activity_0soc4zs" isExpanded="true">
+        <dc:Bounds x="510" y="425" width="670" height="210" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1fh6hpe_di" bpmnElement="Flow_1fh6hpe">
+        <di:waypoint x="567" y="552" />
+        <di:waypoint x="611" y="552" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oikd7t_di" bpmnElement="Flow_1oikd7t">
+        <di:waypoint x="711" y="552" />
+        <di:waypoint x="806" y="552" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gv1loo_di" bpmnElement="Flow_0gv1loo">
+        <di:waypoint x="1051" y="552" />
+        <di:waypoint x="1113" y="552" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1x2hotb_di" bpmnElement="Flow_1x2hotb">
+        <di:waypoint x="856" y="552" />
+        <di:waypoint x="951" y="552" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_101u1if_di" bpmnElement="Flow_101u1if">
+        <di:waypoint x="831" y="527" />
+        <di:waypoint x="831" y="482" />
+        <di:waypoint x="893" y="482" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1v6a7vy_di" bpmnElement="Flow_1v6a7vy">
+        <di:waypoint x="929" y="482" />
+        <di:waypoint x="1131" y="482" />
+        <di:waypoint x="1131" y="534" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1mbqaxl_di" bpmnElement="Event_0rrxbib">
+        <dc:Bounds x="893" y="464" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ym1eme_di" bpmnElement="Gateway_1ym1eme" isMarkerVisible="true">
+        <dc:Bounds x="806" y="527" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_113e3z9_di" bpmnElement="Activity_0xqpavq">
+        <dc:Bounds x="951" y="512" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m5r99b_di" bpmnElement="Event_1m5r99b">
+        <dc:Bounds x="1113" y="534" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18q3vtx_di" bpmnElement="Activity_0ymait9">
+        <dc:Bounds x="611" y="512" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rj5al7_di" bpmnElement="Event_0rj5al7">
+        <dc:Bounds x="531" y="534" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1qdsvqs_di" bpmnElement="Event_0m81ven">
+        <dc:Bounds x="686" y="618" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
