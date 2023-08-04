@@ -6,10 +6,9 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author durenhao
@@ -17,6 +16,8 @@ import java.util.Map;
  **/
 @Data
 public class XmlElement {
+
+    private String id;
 
     private String namespace;
 
@@ -39,6 +40,9 @@ public class XmlElement {
             String key = attributes.getQName(i);
             String value = attributes.getValue(i);
             xmlElement.addAttr(key, value);
+            if (key.equals("id")) {
+                xmlElement.setId(value);
+            }
         }
         return xmlElement;
     }
@@ -68,4 +72,46 @@ public class XmlElement {
             this.text += text;
         }
     }
+
+
+    public Map<String, XmlElement> elementIdMap() {
+        List<XmlElement> xmlElements = allElementList();
+        return xmlElements.stream()
+                .filter(e -> StringUtils.isNotBlank(e.getId()))
+                .collect(Collectors.toMap(XmlElement::getId, Function.identity()));
+    }
+
+
+    public static void elementList(XmlElement element, List<XmlElement> list) {
+        list.add(element);
+        List<XmlElement> subElementList = element.getSubElement();
+        if (CollectionUtils.isNotEmpty(subElementList)) {
+            subElementList.forEach(e -> elementList(e, list));
+        }
+    }
+
+    public List<XmlElement> allElementList() {
+        List<XmlElement> list = new ArrayList<>();
+        elementList(this, list);
+        return list;
+    }
+
+    public Map<String, List<XmlElement>> elementNameGroup() {
+        List<XmlElement> xmlElements = allElementList();
+        return xmlElements.stream()
+                .filter(e -> StringUtils.isNotBlank(e.getName()))
+                .collect(Collectors.groupingBy(XmlElement::getName));
+
+    }
+
+
+    public List<XmlElement> filterSubElementByName(String name) {
+        if (CollectionUtils.isEmpty(subElement)) {
+            return Collections.emptyList();
+        }
+        return subElement.stream()
+                .filter(e -> name.equals(e.getName()))
+                .collect(Collectors.toList());
+    }
+
 }

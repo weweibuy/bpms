@@ -47,8 +47,10 @@ public class AcXmlParseHandlerTest {
 
         XmlElement rootXmlElement = acXmlParseHandler.getRootXmlElement();
         String json = JackJsonUtils.writeValue(rootXmlElement);
-        System.err.println(json);
 
+        XmlElementParser xmlElementParser = new XmlElementParser(rootXmlElement);
+
+        xmlElementParser.parseProcessDefinition();
     }
 
     @Test
