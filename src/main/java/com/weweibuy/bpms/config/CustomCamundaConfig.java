@@ -8,6 +8,8 @@ import org.camunda.bpm.spring.boot.starter.configuration.CamundaProcessEngineCon
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Collections;
+
 /**
  * @author durenhao
  * @date 2021/9/23 21:17
@@ -25,5 +27,9 @@ public class CustomCamundaConfig implements CamundaProcessEngineConfiguration {
     public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
         CustomerIdmIdentityServiceImpl customerIdmIdentityService = new CustomerIdmIdentityServiceImpl();
         processEngineConfiguration.setIdentityService(customerIdmIdentityService);
+
     }
+
+
+
 }

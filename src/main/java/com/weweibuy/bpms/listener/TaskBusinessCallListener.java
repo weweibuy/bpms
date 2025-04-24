@@ -9,7 +9,9 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
+import org.camunda.bpm.engine.impl.persistence.entity.ActivityInstanceImpl;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component("taskBusinessCallListener")
 @RequiredArgsConstructor
-public class TaskBusinessCallListener implements TaskListener {
+    public class TaskBusinessCallListener implements TaskListener {
 
     private final RuntimeService runtimeService;
 
@@ -30,10 +32,16 @@ public class TaskBusinessCallListener implements TaskListener {
 
     @Override
     public void notify(DelegateTask delegateTask) {
+
+        // 触发时机
+        String eventName = delegateTask.getEventName();
+
+
         String processInstanceId = delegateTask.getProcessInstanceId();
         String processDefinitionId = delegateTask.getProcessDefinitionId();
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
-                .processInstanceId(processInstanceId).singleResult();
+
+        ActivityInstance activityInstance = runtimeService.getActivityInstance(processInstanceId);
+
 
         ProcessDefinition processDefinition = repositoryService
                 .createProcessDefinitionQuery()
@@ -41,7 +49,7 @@ public class TaskBusinessCallListener implements TaskListener {
 
         // taskDefinitionKey 对应BPMN 的任务主键ID
         String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-        String businessKey = processInstance.getBusinessKey();
+        String businessKey = ((ActivityInstanceImpl) activityInstance).getBusinessKey();
         /*
          * 这个查出来是空的!!!
          * String processDefinitionKey = processInstance.getProcessDefinitionKey();

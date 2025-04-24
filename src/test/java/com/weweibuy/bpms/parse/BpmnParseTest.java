@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.impl.cfg.DefaultBpmnParseFactory;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.el.JuelExpressionManager;
 import org.camunda.bpm.engine.impl.persistence.entity.DeploymentStatisticsEntity;
+import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.camunda.bpm.engine.impl.scripting.ScriptFactory;
 import org.camunda.bpm.spring.boot.starter.property.Defaults;
@@ -45,7 +46,15 @@ public class BpmnParseTest {
 
         bpmnParse.execute();
         List<ProcessDefinitionEntity> processDefinitions = bpmnParse.getProcessDefinitions();
-        System.err.println(processDefinitions);
+        ProcessDefinitionEntity processDefinitionEntity = processDefinitions.get(0);
+        String key = processDefinitionEntity.getKey();
+
+        ExecutionEntity processInstance = processDefinitionEntity.createProcessInstance();
+
+        processInstance.start();
+
+        System.err.println(key);
+
 
     }
 
