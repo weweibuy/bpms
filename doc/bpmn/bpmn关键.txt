@@ -1,0 +1,70 @@
+1. 多实例任务
+   1.1 execution: 包含父execution与子execution, Activity 信息只能从父execution中获取
+   1.2 bpm先解析collection变量, 获取collection大小, 根据大小创建子execution, 然后调用execution listener
+   1.3 并行多execution 变量
+        父execution:
+                {
+                    "nrOfActiveInstances": {
+                        "type": "Integer",
+                        "value": 4,
+                        "valueInfo": {}
+                    },
+                    "nrOfInstances": {
+                        "type": "Integer",
+                        "value": 4,
+                        "valueInfo": {}
+                    },
+                    "nrOfCompletedInstances": {
+                        "type": "Integer",
+                        "value": 0,
+                        "valueInfo": {}
+                    }
+                }
+        子execution:
+                {
+                    "loopCounter": {
+                        "type": "Integer",
+                        "value": 0,
+                        "valueInfo": {}
+                    },
+                    "assignee": {
+                        "type": "String",
+                        "value": "tom",
+                        "valueInfo": {}
+                    }
+                }
+   1.4 串行多execution 变量
+        父execution:
+            无特殊变量
+        子execution:
+             {
+                 "nrOfActiveInstances": {
+                     "type": "Integer",
+                     "value": 1,
+                     "valueInfo": {}
+                 },
+                 "loopCounter": {
+                     "type": "Integer",
+                     "value": 0,
+                     "valueInfo": {}
+                 },
+                 "assignee": {
+                     "type": "String",
+                     "value": "张三",
+                     "valueInfo": {}
+                 },
+                 "nrOfInstances": {
+                     "type": "Integer",
+                     "value": 3,
+                     "valueInfo": {}
+                 },
+                 "nrOfCompletedInstances": {
+                     "type": "Integer",
+                     "value": 0,
+                     "valueInfo": {}
+                 }
+             }
+
+
+
+
