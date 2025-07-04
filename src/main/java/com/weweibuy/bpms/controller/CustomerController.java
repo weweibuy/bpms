@@ -11,9 +11,6 @@ import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.runtime.ActivityInstance;
-import org.camunda.bpm.engine.runtime.Execution;
-import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.springframework.web.bind.annotation.*;
 
 /**

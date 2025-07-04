@@ -1,0 +1,24 @@
+1. Activity（活动）
+   定义
+   BPMN 元素：Activity 是 BPMN 流程中的基本执行单元，对应流程图中的节点（如 UserTask、ServiceTask、SubProcess, StartEvent、EndEvent、BoundaryEvent 等）。
+   分类：
+       原子活动：不可再分（如 UserTask、ServiceTask）。
+       复合活动：包含子活动（如 SubProcess、CallActivity）。
+2. Transition （转移/连线）
+    表示流程中从一个 Activity 到另一个 Activity 的路径（即箭头）
+
+3. Execution（执行实例）是 Camunda 流程实例运行时的核心实体，代表流程中当前正在执行的位置
+4. Scope（作用域）
+    定义：Scope 是 BPMN 流程中的一个执行范围，通常对应：
+        流程实例（ProcessInstance）
+        子流程（SubProcess）
+        多实例活动（Multi-Instance Activity）
+    特点：
+        每个 Scope 可以有多个 Execution。
+        用于管理变量作用域（VariableScope），即变量的可见范围。
+        在嵌套结构（如子流程）中，Scope 可以形成父子关系
+5. Task
+    Task 是 BPMN 中需要人工或系统处理的工作项，如：
+    UserTask（用户任务）：需要人工审批或填写表单。
+    ServiceTask（服务任务）：自动执行 Java 代码或外部服务。
+    ScriptTask（脚本任务）：执行 Groovy、JavaScript 等脚本。
