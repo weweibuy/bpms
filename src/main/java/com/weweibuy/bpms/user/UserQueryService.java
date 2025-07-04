@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ${userQueryService.queryKey("key")}
+ *
  * @date 2025/4/24
  **/
 @Slf4j

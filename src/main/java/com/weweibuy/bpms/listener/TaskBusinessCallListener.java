@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component("taskBusinessCallListener")
 @RequiredArgsConstructor
-    public class TaskBusinessCallListener implements TaskListener {
+public class TaskBusinessCallListener implements TaskListener {
 
     private final RuntimeService runtimeService;
 
