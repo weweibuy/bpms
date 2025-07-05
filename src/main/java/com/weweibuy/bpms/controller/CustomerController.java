@@ -76,8 +76,10 @@ public class CustomerController {
      */
     @GetMapping("/jump")
     public void jump(String instanceId, String node) {
-        ActivityInstance activityInstance = runtimeService.getActivityInstance(instanceId);
-        String activityId = activityInstance.getActivityId();
+        ActivityInstance activityInstance =
+                runtimeService.getActivityInstance(instanceId);
+
+        String activityId = activityInstance.getId();
         runtimeService.createProcessInstanceModification(instanceId)
                 .cancelActivityInstance(activityId)
                 .cancelAllForActivity(activityId)
