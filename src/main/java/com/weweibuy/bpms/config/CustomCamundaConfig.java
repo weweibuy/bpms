@@ -1,5 +1,6 @@
 package com.weweibuy.bpms.config;
 
+import com.weweibuy.bpms.listener.DynamicTaskCompleteListener;
 import com.weweibuy.bpms.listener.DynamicTaskCreateListener;
 import com.weweibuy.bpms.listener.ProcessEndListener;
 import com.weweibuy.bpms.user.CustomerIdmIdentityServiceImpl;
@@ -43,6 +44,7 @@ public class CustomCamundaConfig implements CamundaProcessEngineConfiguration {
         // 注册
         eventBus.register(new DynamicTaskCreateListener());
         eventBus.register(new ProcessEndListener());
+        eventBus.register(new DynamicTaskCompleteListener());
         return plugin;
     }
 

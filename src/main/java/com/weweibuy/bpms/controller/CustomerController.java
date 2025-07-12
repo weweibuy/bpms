@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @date 2025/7/1
@@ -83,7 +84,7 @@ public class CustomerController {
     }
 
     /**
-     * 多实例 并行加签
+     * 跳转
      *
      * @param instanceId
      * @param node
@@ -101,6 +102,27 @@ public class CustomerController {
                 .execute();
     }
 
+
+    /**
+     * 激活流程节点
+     *
+     * @param instanceId
+     * @param node
+     * @param type
+     */
+    @GetMapping("/start-node")
+    public void start(String instanceId, String node, Integer type) {
+        if (Objects.equals(type, 1)) {
+            runtimeService.createProcessInstanceModification(instanceId)
+                    .startBeforeActivity(node)
+                    .execute();
+        } else {
+            runtimeService.createProcessInstanceModification(instanceId)
+                    .startTransition(node)
+                    .execute();
+        }
+    }
+
     @GetMapping("/deleteTask")
     public void deleteTask(String taskId) {
         TaskServiceImpl taskService = (TaskServiceImpl) processEngineConfiguration.getTaskService();
@@ -109,6 +131,13 @@ public class CustomerController {
     }
 
 
+    /**
+     * 临时部署
+     *
+     * @param file
+     * @param instanceId
+     * @throws Exception
+     */
     @PostMapping("/tmpDeployment")
     public void tmpDeployment(MultipartFile file, String instanceId) throws Exception {
         byte[] bytes = file.getBytes();
@@ -128,6 +157,11 @@ public class CustomerController {
                 .singleResult();
     }
 
+    /**
+     * 临时迁移
+     *
+     * @param instanceId
+     */
     @GetMapping("/tempMigration")
     public void tempMigration(String instanceId) {
         List<Deployment> list = repositoryService.createDeploymentQuery()
@@ -150,7 +184,7 @@ public class CustomerController {
                 .singleResult();
 
         MigrationPlan migrationPlan = runtimeService.createMigrationPlan(
-                processDefinition.getId(), newDefinition.getId())
+                        processDefinition.getId(), newDefinition.getId())
                 // 自动匹配相同ID的节点
                 .mapEqualActivities()
                 // 手动映射不同ID的节点
